@@ -1,0 +1,23 @@
+name: Build and Push Docker Image
+
+on:
+  workflow_dispatch:  # Manually trigger the workflow
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Login to GitHub Container Registry
+      run: echo ${{ secrets.GITHUB_TOKEN }} | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+    - name: Build and tag Docker image
+      run: |
+        docker build -t ghcr.io/louisaslett/vastai-mineru:cuda-13.2.0-mineru-3.1.10 -t ghcr.io/louisaslett/vastai-mineru:latest ./docker
+
+    - name: Push Docker image to GHCR
+      run: |
+        docker push --all-tags ghcr.io/louisaslett/vastai-mineru
