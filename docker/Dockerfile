@@ -1,5 +1,5 @@
 #For example
-FROM docker pull vastai/base-image:cuda-13.2.0-auto
+FROM vastai/base-image:cuda-13.2.0-auto
 
 # Install your applications into /opt/workspace-internal/
 # This ensures files can be properly synced between instances
