@@ -8,4 +8,8 @@ WORKDIR /opt/workspace-internal/
 # Activate virtual environment from base image
 RUN . /venv/main/bin/activate
 
-RUN uv pip install -U "mineru[core]"
+RUN << EOF
+  uv venv
+  source .venv/bin/activate
+  uv pip install -U "mineru[core]"
+EOF
