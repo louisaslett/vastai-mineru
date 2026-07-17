@@ -16,7 +16,10 @@ RUN <<EOF
 EOF
 
 # 2. Pre-download all models during the image build phase
-RUN TORCH_DEVICE_BACKEND_AUTOLOAD=0 mineru-models-download -s huggingface -m all
+RUN <<EOF
+  source .venv/bin/activate
+  TORCH_DEVICE_BACKEND_AUTOLOAD=0 mineru-models-download -s huggingface -m all
+EOF
 
 # 3. Force MinerU to use the local models at runtime
 ENV MINERU_MODEL_SOURCE=local
